@@ -6,6 +6,8 @@
 -->
 
 # Interview
+![.NET Core](https://github.com/jeredm/Interview/workflows/.NET%20Core/badge.svg?branch=master)
+
 This project explores data structures and algorithms in C#. They are a work in progress and are not bug free.
 Feel free to contribute your ideas and fixes. I am using this as a tool to prepare for interviews.
 
