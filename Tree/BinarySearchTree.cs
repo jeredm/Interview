@@ -10,7 +10,9 @@ namespace Tree
 {
     // This is a BinarySearchTree:
     // - There is a maximum of two children per parent
-    // - The left node is always less than the right node
+    // - The nodes on the left are all less than the parent
+    // - The nodes on the right are all greater than the parent
+    // - Adding nodes does not re-assign nodes. This only happens on remove.
     //
     // Implementation Notes:
     // - This tree assumes duplicates are invalid and false is returned when a duplicate is added.
@@ -18,70 +20,65 @@ namespace Tree
     // - This tree uses an Integer for the value, but we could implement the same thing using Comparable.
     //   In that case, we could Compare each node instead of checking the value of an int.
     // 
-    // Depth First Traversal:
-    // - Pre Order traversal: Visit the parent first and then left and then right children;
-    // - In Order traversal: Visit the left child, then the parent and then the right child;
-    // - Post Order traversal: Visit left child, then the right child and then the parent;
+    // Depth First Search (DFS):
+    // These searches are recursive.
+    // - Pre Order traversal: Visit the parent first and then left and then right children
+    // - In Order traversal: Visit the left child, then the parent and then the right child (always produces sorted output)
+    // - Post Order traversal: Visit left child, then the right child and then the parent
     //
-    // BreadthFirst Traversal:
+    // Breadth First Search (BFS):
+    // This search uses a Queue
     // - Level Order traversal: Visit nodes by levels from top to bottom and from left to right.
     //
     // Time Complexity:
-    // - Lookup, Insert, Remove Average: O(log n) Logarithmic time
-    // - Lookup, Insert, Remove Worst: O(n) Linear time
-    // - Lookup, Insert, Remove Best: O(1) Constant time
-    // TODO: Verify times
-    // TODO: Add space complexity
+    // - Find, Add, Remove Average: O(log n) Logarithmic time
+    // - Find, Add, Remove Worst: O(n) Linear time
+    // - Find, Add, Remove Best: O(1) Constant time
+    // - All Traversal: O(n) Linear time because every node has to be visited
+    //
+    // Space Complexity:
+    // - DFS Traversals: 
+    //   Balanced O(log n) vs. Skewed O(n). This is because of more function call overhead when the tree
+    //   is deeper. The recursive nature of this pattern is the function call overhead.
+    // - BFS Traversals:
+    //   Balanced O(n) vs. Skewed O(log n). The more nodes in a row means more space that is going to 
+    //   be consumed by the queue.
+    // - How to choose?:
+    //   If the node you need is closer to the root, DFS will likely be better.
+    //   If the node you need is a leaf, BFS will likely be better.
     public class BinarySearchTree
     {
         public Node Root { get; private set; }
         public int Count { get; private set; }
 
-        public bool Add(int value)
+        public void Add(int value)
         {
-            // Always inserts the node. The tree is not re-ordered.
-            Node before = null;
-            Node after = Root;
-
-            while (!(after is null))
-            {
-                before = after;
-
-                if (value < after.Value)
-                {
-                    after = after.Left;
-                }
-                else if (value > after.Value)
-                {
-                    after = after.Right;
-                }
-                else
-                {
-                    // Duplicate value
-                    return false;
-                }
-            }
-
-            Node current = new Node { Value = value };
-
+            var node = Add(value, Root);
             if (Root is null)
             {
-                Root = current;
+                Root = node;
             }
-            else if (value > before.Value)
+        }
+
+        private Node Add(int value, Node node)
+        {
+            if (node == null)
             {
-                before.Right = current;
+                node = new Node { Value = value};
+                Count++;
+            }
+            else if (value < node.Value)
+            {
+                node.Left = Add(value, node.Left);
             }
             else
             {
-                before.Left = current;
+                node.Right = Add(value, node.Right);
             }
-
-            Count++;
-
-            return true;
+            return node;
         }
 
+        // This is a Depth First Search (DFS)
         public Node Find(int value)
         {
             return Find(value, Root);
@@ -89,14 +86,7 @@ namespace Tree
 
         private Node Find(int value, Node node)
         {
-            // Recursive. Walks each node and chooses left or right depending on the
-            // value of the node. This allows the find to happen without having to
-            // check every node.
-            if (node is null)
-            {
-                return null;
-            }
-            else if (value == node.Value)
+            if (node is null || value == node.Value)
             {
                 return node;
             }
@@ -104,10 +94,8 @@ namespace Tree
             {
                 return Find(value, node.Left);
             }
-            else
-            {
-                return Find(value, node.Right);
-            }
+ 
+            return Find(value, node.Right);
         }
 
         public void Remove(int value)
@@ -184,57 +172,89 @@ namespace Tree
         }
 
         // This is a Pre-Order Traversal
-        public List<int> PrintRootLeftRight()
+        public List<int> TraverseRootLeftRight()
         {
             var values = new List<int>();
-            PrintRootLeftRight(Root, values);
+            TraverseRootLeftRight(Root, values);
             return values;
         }
 
-        private void PrintRootLeftRight(Node node, List<int> values)
+        private void TraverseRootLeftRight(Node node, List<int> values)
         {
             if (node != null)
             {
                 values.Add(node.Value);
-                PrintRootLeftRight(node.Left, values);
-                PrintRootLeftRight(node.Right, values);
+                TraverseRootLeftRight(node.Left, values);
+                TraverseRootLeftRight(node.Right, values);
             }
         }
     
         // This is an In-Order Traversal
-        public List<int> PrintLeftRootRight()
+        public List<int> TraverseLeftRootRight()
         {
             var values = new List<int>();
-            PrintLeftRootRight(Root, values);
+            TraverseLeftRootRight(Root, values);
             return values;
         }
 
-        private void PrintLeftRootRight(Node node, List<int> values)
+        private void TraverseLeftRootRight(Node node, List<int> values)
         {
             if (node != null)
             {
-                PrintLeftRootRight(node.Left, values);
+                TraverseLeftRootRight(node.Left, values);
                 values.Add(node.Value);
-                PrintLeftRootRight(node.Right, values);
+                TraverseLeftRootRight(node.Right, values);
             }
         }
     
         // This is a Post-Order Traversal
-        public List<int> PrintLeftRightRoot()
+        public List<int> TraverseLeftRightRoot()
         {
             var values = new List<int>();
-            PrintLeftRightRoot(Root, values);
+            TraverseLeftRightRoot(Root, values);
             return values;
         }
 
-        private void PrintLeftRightRoot(Node node, List<int> values)
+        private void TraverseLeftRightRoot(Node node, List<int> values)
         {
             if (node != null)
             {
-                PrintLeftRightRoot(node.Left, values);
-                PrintLeftRightRoot(node.Right, values);
+                TraverseLeftRightRoot(node.Left, values);
+                TraverseLeftRightRoot(node.Right, values);
                 values.Add(node.Value);
             }
+        }
+
+        public List<int> TraverseBreadthFirst()
+        {
+            var values = new List<int>();
+            var visited = new HashSet<int>();
+            var nextToVisit = new Queue<Node>();
+            nextToVisit.Enqueue(Root);
+
+            while (nextToVisit.Count > 0)
+            {
+                var node = nextToVisit.Dequeue();
+                if (visited.Contains(node.Value))
+                {
+                    continue;
+                }
+
+                // If we want a BFS, we can check here for a match and return true if it is.
+
+                visited.Add(node.Value);
+                values.Add(node.Value);
+
+                if (!(node.Left is null))
+                {
+                    nextToVisit.Enqueue(node.Left);
+                }
+                if (!(node.Right is null))
+                {
+                    nextToVisit.Enqueue(node.Right);
+                }
+            }
+            return values; // If this is a BFS, we would return false here.
         }
     }
 }

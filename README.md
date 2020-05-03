@@ -24,4 +24,8 @@ This tree has examples of:
 - In order traversal (DFS)
 - Pre order traversal (DFS)
 - Post order traversal (DFS)
-- TODO: Level order traversal (BFS)
+- Level order traversal (BFS)
+
+We could add:
+- Width of the tree (the maximum number of nodes at one level)
+- Diameter of the tree (longest path between two leaves)
