@@ -27,6 +27,7 @@ This tree has examples of:
 - Pre order traversal (DFS)
 - Post order traversal (DFS)
 - Level order traversal (BFS)
+- Create a BST with the minimum height
 
 We could add:
 - Width of the tree (the maximum number of nodes at one level)

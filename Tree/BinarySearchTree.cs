@@ -48,7 +48,7 @@ namespace Tree
     //   If the node you need is a leaf, BFS will likely be better.
     public class BinarySearchTree
     {
-        public Node Root { get; private set; }
+        public Node Root { get; protected set; }
         public int Count { get; private set; }
 
         public void Add(int value)
