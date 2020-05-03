@@ -165,7 +165,11 @@ namespace Tree
 
         private int Depth(Node node)
         {
-            return node is null ? 0 : Math.Max(Depth(node.Left), Depth(node.Right)) + 1;
+            if (node is null)
+            {
+                return 0;
+            }
+            return 1 + Math.Max(Depth(node.Left), Depth(node.Right));
         }
 
         private int MinValue(Node node)

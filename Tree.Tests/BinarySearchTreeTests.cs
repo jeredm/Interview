@@ -63,7 +63,7 @@ namespace Tree.Tests
             tree.Count.Should().Be(5);
         }
 
-        [Fact(Skip="broken for now")]
+        [Fact]
         public void It_knows_its_depth()
         {
             var tree = new BinarySearchTree();
@@ -75,17 +75,19 @@ namespace Tree.Tests
             tree.Add(6);
             tree.Add(5);
 
-            //      7
-            //      /\
-            //     3  4
-            //    /    \
-            //   2      6
-            //  /       /
-            // 1       5
+            //       7
+            //      /
+            //     3
+            //    / \
+            //   2   4
+            //  /     \
+            // 1       6
+            //        /
+            //       5
 
-            int depth = tree.Depth();
+            int height = tree.Depth();
 
-            depth.Should().Be(4);
+            height.Should().Be(5);
         }
 
         [Fact(Skip = "Need a structure where there are to children")]
