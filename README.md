@@ -15,6 +15,9 @@ Feel free to contribute your ideas and fixes. I am using this as a tool to prepa
 - Ensure you have the .NET Core 3.1 SDK installed
 - Each project has a separate test project. Use the tests to see working examples.
 
+# Dynamic
+Holds a few dynamic programming examples
+
 # Tree
 Explores the Tree data structure. It focuses on a binary search tree.
 This tree has examples of:
