@@ -18,6 +18,11 @@ Feel free to contribute your ideas and fixes. I am using this as a tool to prepa
 # Dynamic
 Holds a few dynamic programming examples
 
+# StringManipulation
+Holds example problems to string and subsets of a string.
+Here is a list of the problems:
+- Sliding sliding window to find sub string length
+
 # Tree
 Explores the Tree data structure. It focuses on a binary search tree.
 This tree has examples of:
