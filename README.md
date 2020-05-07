@@ -23,6 +23,11 @@ Holds example problems to string and subsets of a string.
 Here is a list of the problems:
 - Sliding sliding window to find sub string length
 
+# SortOrder
+Holds different sorting examples.
+Here is a list of the different sort options:
+- Quicksort
+
 # Tree
 Explores the Tree data structure. It focuses on a binary search tree.
 This tree has examples of:
