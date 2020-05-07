@@ -24,7 +24,7 @@ namespace Tree
             if (begin > end)
                 return null;
 
-            var mid = (end + begin) / 2;
+            var mid = begin + (end - begin) / 2;
             var node = new Node { Value = values[mid] };
             node.Left = BuildTree(values, begin, mid - 1);
             node.Right = BuildTree(values, mid + 1, end);
