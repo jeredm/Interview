@@ -24,9 +24,10 @@ Here is a list of the problems:
 - Sliding sliding window to find sub string length
 
 # SortOrder
-Holds different sorting examples.
+Holds different sorting and searching examples.
 Here is a list of the different sort options:
 - Quicksort
+- Binary search
 
 # Tree
 Explores the Tree data structure. It focuses on a binary search tree.
