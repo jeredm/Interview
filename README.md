@@ -27,6 +27,7 @@ Here is a list of the problems:
 Holds different sorting and searching examples.
 Here is a list of the different sort options:
 - Bubble sort
+- Merge sort
 - Quick sort
 - Binary search
 

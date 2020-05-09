@@ -25,9 +25,11 @@ namespace SortOrder
 
             for (int i = 0; i < input.Length - 1; i++)
             {
+                // If nothing changes in one iteration, we should stop checking
                 var hasSwap = false;
                 for(int j = 0; j < input.Length - i - 1; j++)
                 {
+                    // Using a delegate here just to show a way to allow for differnt sorting directions
                     if (shouldSwap(input[j], input[j + 1]))
                     {
                         Swap(input, j, j + 1);

@@ -12,9 +12,9 @@ namespace SortOrder.Tests
         [InlineData(new [] { 1, -7, -7, -2, 7 }, new [] { -7, -7, -2, 1, 7 })]
         public void It_can_sort_ascending(int[] input, int[] expected)
         {
-            var qs = new BubbleSort();
+            var bs = new BubbleSort();
 
-            qs.Sort(input, (left, right) => { return left > right; });
+            bs.Sort(input, (left, right) => { return left > right; });
 
             input.Should().ContainInOrder(expected);
         }
@@ -26,9 +26,9 @@ namespace SortOrder.Tests
         [InlineData(new [] { 1, -7, -7, -2, 7 }, new [] { 7, 1, -2, -7, -7 })]
         public void It_can_sort_decending(int[] input, int[] expected)
         {
-            var qs = new BubbleSort();
+            var bs = new BubbleSort();
 
-            qs.Sort(input, (left, right) => { return left < right; });
+            bs.Sort(input, (left, right) => { return left < right; });
 
             input.Should().ContainInOrder(expected);
         }
