@@ -1,8 +1,15 @@
 namespace SortOrder
 {
-    // Time Complexity
+    // This is a pretty fast way to sort and it uses a little more space due to the cost of the call
+    // stack. The trade off with a Merge Sort is that this sort uses less space (Merge Sort is O(n) due
+    // to the helper it uses to partition the array). In contrast choosing a bad pivot (e.g. index 0
+    // of an already sorted list) makes this worst case time complexity and run slower than the Merge Sort.
+    //
+    // Time Complexity:
     // - Average: O(n log n)
-    // - Worst: O(n^2)
+    // - Worst: O(n ^ 2)
+    // Space Complexity:
+    // - O(log n)
     public class QuickSort
     {
         public void Sort(int[] input)

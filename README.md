@@ -26,7 +26,8 @@ Here is a list of the problems:
 # SortOrder
 Holds different sorting and searching examples.
 Here is a list of the different sort options:
-- Quicksort
+- Bubble sort
+- Quick sort
 - Binary search
 
 # Tree
