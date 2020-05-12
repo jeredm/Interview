@@ -31,6 +31,10 @@ Here is a list of the different sort options:
 - Quick sort
 - Binary search
 
+# DataStructureMisc
+Several different data structures.
+- Single Linked List
+
 # Tree
 Explores the Tree data structure. It focuses on a binary search tree.
 This tree has examples of:
