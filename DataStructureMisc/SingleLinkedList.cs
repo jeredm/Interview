@@ -13,7 +13,7 @@ namespace DataStructureMisc
         private SingleListNode<T> _head;
         private SingleListNode<T> _current;
 
-        public void Add(T value)
+        public void AddValue(T value)
         {
             if (value is null) throw new ArgumentNullException(nameof(value));
 
@@ -21,7 +21,6 @@ namespace DataStructureMisc
             if (_head is null)
             {
                 _head = node;
-                _current = node;
             }
             else
             {
@@ -32,6 +31,7 @@ namespace DataStructureMisc
                 }
                 before.Next = node;
             }
+            _current = _head;
         }
 
         public bool HasNext()

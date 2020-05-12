@@ -18,7 +18,7 @@ namespace DataStructureMisc.Tests
         public void It_gets_values_in_the_right_order(int[] expected)
         {
             var list = new SingleLinkedList<int>();
-            Array.ForEach(expected, x => list.Add(x));
+            Array.ForEach(expected, x => list.AddValue(x));
 
             var result = list.GetValues();
 
@@ -30,9 +30,9 @@ namespace DataStructureMisc.Tests
         {
             var head = 7;
             var list = new SingleLinkedList<int>();
-            list.Add(head);
-            list.Add(28);
-            list.Add(79);
+            list.AddValue(head);
+            list.AddValue(28);
+            list.AddValue(79);
             var nextOne = list.GetNext();
             var nextTwo = list.GetNext();
 
@@ -43,6 +43,21 @@ namespace DataStructureMisc.Tests
             resetOne.Should().Be(head);
         }
 
+        [Fact]
+        public void It_resets_current_when_adding()
+        {
+            var initialState = new int[] { 5, 6, 7 };
+            var list = new SingleLinkedList<int>();
+            Array.ForEach(initialState, x => list.AddValue(x));
+
+            var nextOne = list.GetNext();
+            var nextTwo = list.GetNext();
+            list.AddValue(9);
+            var afterOne = list.GetNext();
+
+            afterOne.Should().Be(nextOne);
+        }
+
         [Theory]
         [InlineData(new int[] { 5, 3, 8 }, new int[] {3, 8}, 5)]
         [InlineData(new int[] { 5, 3, 8 }, new int[] {5, 8}, 3)]
@@ -50,7 +65,7 @@ namespace DataStructureMisc.Tests
         public void It_can_remove_nodes(int[] initialState, int[] endingState, int valueToRemove)
         {
             var list = new SingleLinkedList<int>();
-            Array.ForEach(initialState, x => list.Add(x));
+            Array.ForEach(initialState, x => list.AddValue(x));
 
             list.RemoveValue(valueToRemove);
 
@@ -63,7 +78,7 @@ namespace DataStructureMisc.Tests
         {
             var initialState = new int[] { 5, 6, 2, 9 };
             var list = new SingleLinkedList<int>();
-            Array.ForEach(initialState, x => list.Add(x));
+            Array.ForEach(initialState, x => list.AddValue(x));
 
             var nextOne = list.GetNext();
             var nextTwo = list.GetNext();
