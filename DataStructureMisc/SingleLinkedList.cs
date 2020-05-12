@@ -11,25 +11,26 @@ namespace DataStructureMisc
     public class SingleLinkedList<T>
     {
         private SingleListNode<T> _head;
-        private SingleListNode<T> _tail;
         private SingleListNode<T> _current;
-
 
         public void Add(T value)
         {
             if (value is null) throw new ArgumentNullException(nameof(value));
 
             var node = new SingleListNode<T> { Value = value };
-            if (_tail is null)
+            if (_head is null)
             {
                 _head = node;
-                _tail = node;
                 _current = node;
             }
             else
             {
-                _tail.Next = node;
-                _tail = node;
+                var before = _head;
+                while (before.Next != null)
+                {
+                    before = before.Next;
+                }
+                before.Next = node;
             }
         }
 
@@ -46,6 +47,39 @@ namespace DataStructureMisc
             var result = _current;
             _current = result.Next;
             return result.Value;
+        }
+
+        public void Reset()
+        {
+            _current = _head;
+        }
+
+        public void RemoveValue(T value)
+        {
+            if (_head is null) return;
+            _head = RemoveValue(_head, value);
+            Reset();
+        }
+
+        private SingleListNode<T> RemoveValue(SingleListNode<T> head, T value)
+        {
+            var node = head;
+
+            if (node.Value.Equals(value))
+            {
+                return head.Next;
+            }
+
+            while(node.Next != null)
+            {
+                if (node.Next.Value.Equals(value))
+                {
+                    node.Next = node.Next.Next;
+                    return head;
+                }
+                node = node.Next;
+            }
+            return head;
         }
 
         public T[] GetValues()

@@ -24,5 +24,54 @@ namespace DataStructureMisc.Tests
 
             result.Should().ContainInOrder(expected);
         }
+
+        [Fact]
+        public void It_can_reset_the_current_node_to_the_head()
+        {
+            var head = 7;
+            var list = new SingleLinkedList<int>();
+            list.Add(head);
+            list.Add(28);
+            list.Add(79);
+            var nextOne = list.GetNext();
+            var nextTwo = list.GetNext();
+
+            list.Reset();
+            var resetOne = list.GetNext();
+
+            resetOne.Should().Be(nextOne);
+            resetOne.Should().Be(head);
+        }
+
+        [Theory]
+        [InlineData(new int[] { 5, 3, 8 }, new int[] {3, 8}, 5)]
+        [InlineData(new int[] { 5, 3, 8 }, new int[] {5, 8}, 3)]
+        [InlineData(new int[] { 5, 3, 8 }, new int[] {5, 3}, 8)]
+        public void It_can_remove_nodes(int[] initialState, int[] endingState, int valueToRemove)
+        {
+            var list = new SingleLinkedList<int>();
+            Array.ForEach(initialState, x => list.Add(x));
+
+            list.RemoveValue(valueToRemove);
+
+            var result = list.GetValues();
+            result.Should().ContainInOrder(endingState);
+        }
+
+        [Fact]
+        public void It_resets_current_when_removing()
+        {
+            var initialState = new int[] { 5, 6, 2, 9 };
+            var list = new SingleLinkedList<int>();
+            Array.ForEach(initialState, x => list.Add(x));
+
+            var nextOne = list.GetNext();
+            var nextTwo = list.GetNext();
+            list.RemoveValue(2);
+            var afterOne = list.GetNext();
+
+            afterOne.Should().Be(nextOne);
+            nextOne.Should().NotBe(nextTwo);
+        }
     }
 }
